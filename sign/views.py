@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .forms import Chapter1Form
-from .models import Chapter, lists
+from .models import Chapter, lists, Answer
 # Create your views here.
 
 
@@ -50,3 +50,11 @@ def exercise(request):
         return render(request, "exercise.html", {'chapter': chapter, 'part': part, 'exercises_number': exercises_number})
     else:
         return render(request, "exercise.html", {'name': b.title})
+
+def answers(request):
+    answers = Answer.objects.all()
+    return render(request, 'answer_list.html', {'answers': answers})
+
+def answer_detail(request, answer_id):
+    answer = Answer.objects.get(id=answer_id)
+    return render(request, 'answer_detail.html', {'answer': answer})

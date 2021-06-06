@@ -20,4 +20,9 @@ class Chapter(models.Model):
 
 
 class Answer(models.Model):
-    chapter = models.Foreignkey(Chapter)
+    #chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+
+    def __str__(self):
+        return self.title

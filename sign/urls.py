@@ -7,4 +7,6 @@ urlpatterns = [
     path('general_catalog/', views.general_catalog, name='general_catalog'),
     path('general_catalog/catalog/', views.catalog, name='catalog'),
     path('general_catalog/catalog/exercise/', views.exercise, name='exercise'),
+    path('answers/', views.answers, name='answers'),
+    path('answers/<int:answer_id>/', views.answer_detail, name='answer_detail'),
 ]
