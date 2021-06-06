@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html class="img-no-display"> 
+<head>
+<meta charset=UTF-8" > 
+<title>蓁臻的解答</title>
+
+<style>
+*{
+    margin: 0;
+    padding: 0;
+  }
+.title{
+    width: 100%;
+    text-align: center;
+    background-color: #a9b7c0;
+    color: black;
+    margin:0px 0px 20px 0px;
+    padding: 10px 0px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+body{
+    background-color: #c7d8c6;
+    padding-top: 120px;
+}
+input[type="number"]{
+    width: 8em;
+    height:15px;
+    padding: 10px;
+}
+input[type="submit"]{
+    width: 4em;
+    height:40px;
+    padding: 10px;
+}
+#chapter{
+    margin: auto;
+    text-align: center;
+}
+select[name="chapter1"]{
+    height: 40px;
+    padding: 5px;
+}
+</style>
+</head>
+
+<body>
+<div class="title">
+    <h1>蓁臻的解答</h1>
+    <form id="search" action="" method="get">          
+    <input type="number" name="chapter" min="1" max="13" placeholder="請輸入第幾章" required >
+    <input type="number" name="part" min="1" max="9" placeholder="請輸入第幾節" required>
+    <input type="number" name="exercises number" min="1" placeholder="請輸入第幾題" required>
+    <input type="submit" value="搜尋">
+    </form>
+</div> 
+
+<div class="select">
+<form id="chapter" action="" method="get">   
+<select name="chapter1"> 
+ <option value="">請選擇小節</option>
+	{% for key,value in chapter1_form.chapter1 %}
+	<option value="{{ value }}">{{ key }}</option>
+	{% endfor %}
+</select>
+<input type="submit" value="確定"/>
+</form>
+</div>
+
+</body>
+</html>
