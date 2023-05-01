@@ -1,42 +1,42 @@
 <!DOCTYPE html>
 <html class="img-no-display"> 
 <head>
-<meta charset=UTF-8" > 
+<meta charset="UTF-8" > 
 <title>蓁臻的解答</title>
 <style>
- *{
-    margin: 0;
-    padding: 0;
+ *{             /*css的重置*/
+    margin: 0;  /*各元素間的上下左右距離*/
+    padding: 0; /*各元素間的內距(邊界與內容間的距離)*/
   }
 .title{
-    width: 100%;
-    text-align: center;
-    background-color: #a9b7c0;
-    color: black;
-    margin:0px 0px 0px 0px;
+    width: 100%; /*元素的寬度*/
+    text-align: center; /*文字對齊方式*/
+    background-color: #a9b7c0; /*標題背景色設定*/
+    color: black; /*文字顏色設定*/
+    margin:0px 0px 0px 0px; 
     padding: 10px 0px;
-    position: fixed;
-    top: 0;
+    position: fixed; /*將標題位置固定，即代表不論頁面如何捲動，標題皆會顯示在視窗最上方*/
+    top: 0; /*top、right、left三行皆為設定標題與視窗的距離*/
     left: 0;
     right: 0;
   }
 body{
-    background-color: #c7d8c6;
-    padding-top: 120px;
+    background-color: #c7d8c6; /*視窗背景色設定*/
+    padding-top: 120px; /*因前面title處已設定為固定於視窗上，固須將body的內容設有一上內距，否則會出現尚未捲動捲軸就已有內容被標題覆蓋到之情況*/
 }
-.小title{
+.littletitle{
     text-align: center;
     margin: auto;
     padding:8px;
-    border-color: black;
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 5px;
+    border-color: black; /*設定框線顏色*/
+    border-width: 2px; /*設定框線寬度*/
+    border-style: solid; /*設定框線樣式為實線*/
+    border-radius: 5px; /*設定框線圓角大小*/
     width: 10%;
 }
 input[type="number"]{
     width: 8em;
-    height:15px;
+    height:15px; /*設定元素高度*/
     padding: 10px;
 }
 input[type="submit"]{
@@ -52,7 +52,7 @@ input[type="submit"]{
     margin-top: 15px;
 }
 p{
-    font-size:24px;
+    font-size:24px; /*設定字體大小*/
 }
 article{
     margin-bottom: 10px;
@@ -76,13 +76,15 @@ article{
         </form>
     </div>
     
-    <div class="小title">
-	<h1>{{ name }}&nbsp&nbsp1.</h1>
+    <div class="littletitle">
+	<h1>{{ answer.title }}&nbsp&nbsp</h1>   <!--/*顯示該題的標題(及幾之幾與題號)*/-->
         
     </div>
 
     <div class="answer">
-        <p><strong>題目</strong></p>
+        
+        <p><strong>題目</strong><br></p>
+        <p>{{ question.content }}</p>       <!--/*顯示該題的題目*/-->
         <article>
             <h1>解法一</h1>
             <img >

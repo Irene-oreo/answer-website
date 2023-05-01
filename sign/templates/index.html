@@ -29,8 +29,8 @@ body{
 .box{
         width:100%;
         margin: auto;
-        display: flex;
-        justify-content: space-between; 
+        display: flex; /*設定為使用flex彈性框架來排版，此行程式碼會使box成為flex容器，其子元素column則為flex項目*/
+        justify-content: space-between; /*將box中各項目對齊兩端平均配置*/
 }
 .column{
       width: 400px;
@@ -40,12 +40,12 @@ body{
 }
 a{
       color: blue;  
-      text-decoration: none;
+      text-decoration: none; /*設定超連結之文字裝飾*/
 }
 .column:hover{
-        background-color: #efd9c3;
+        background-color: #efd9c3; /*設定當滑鼠停留在元素上時背景色的更動*/
 }
-  </style>
+</style>
 </head>
 
 <body>

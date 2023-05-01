@@ -1,16 +1,8 @@
 from django.shortcuts import render
 from .forms import Chapter1Form
-from .models import Chapter, lists, Answer
+from .models import Answer, Question
+
 # Create your views here.
-
-
-class Chapterlist():
-    chapter1_1_list = (('1.', 'yes'), ('2.', 'no'))
-    chapter1_2_list = (('1.', 'yes'), ('2.', 'no'))
-    chapter1_3_list = (('1.', 'yes'), ('2.', 'no'))
-
-
-a = '1'
 
 
 def index(request):
@@ -19,42 +11,68 @@ def index(request):
 
 def general_catalog(request):
 
-    if 'chapter' in request.GET:  # request.GET是字典，會儲存對應的輸入name與其值
-        chapter = request.GET.get('chapter')
-        part = request.GET.get('part')
-        exercises_number = request.GET.get('exercises number')
-        return render(request, "exercise.html", {'chapter': chapter, 'part': part, 'exercises_number': exercises_number})
-    if 'chapter1' in request.GET:
-        global a
-        a = '1-'+str(request.GET.get('chapter1'))
-        Chapter.objects.create(title=a)
+    if "chapter" in request.GET:  # 若搜尋表單接受到值
+        name = (  # request.GET是字典，name會儲存?-? ?.
+            request.GET.get("chapter")
+            + "-"
+            + request.GET.get("part")
+            + " "
+            + request.GET.get("exercises number")
+            + "."
+        )
+        answer = Answer.objects.get(title=name)  # 令answer為模型Answer裡title為?-? ?.的那筆資料
+        question = Question.objects.get(
+            title=name
+        )  # 令question為模型Question裡title為?-? ?.的那筆資料
+        return render(
+            request,
+            "exercise.html",
+            {"answer": answer, "question": question},  # 給題目頁面，並將answer與question變數傳進去該頁面
+        )
+    if "chapter1" in request.GET:  # 若下拉式表單收到值
+        name = "1-" + str(request.GET.get("chapter1"))  # 令name為1-?
+        Chapterlist = [
+            Chapterlist for Chapterlist in Answer.objects.filter(title__contains=name)
+        ]  # Chapterlist 是一個list裡面有所有title含1-?的每筆資料(取得所有該節的每筆題目+答案)
 
-        return render(request, "catalog.html", {'Chapterlist': Chapterlist(), 'name': a})
+        return render(
+            request, "catalog.html", {"Chapterlist": Chapterlist, "name": name}
+        )  # 給單節目錄網頁，並將name及Chapterlist傳進去
     else:
-        return render(request, "general_catalog.html", {'chapter1_form': Chapter1Form})
+        return render(
+            request, "general_catalog.html", {"chapter1_form": Chapter1Form}
+        )  # 給出總目錄的網頁並把 Chapter1Form這個表單給總目錄網頁
 
 
 def catalog(request):
-    catalog_list = lists.objects.all()
-    return render(request, "catalog.html", {'catalog_list': catalog_list})
-
-
-def exercise(request):
-    global a
-    b = Chapter.objects.get(title=a)
-    print(b.title)
-    if 'chapter' in request.GET:  # request.GET是字典，會儲存對應的輸入name與其值
-        chapter = request.GET.get('chapter')
-        part = request.GET.get('part')
-        exercises_number = request.GET.get('exercises number')
-        return render(request, "exercise.html", {'chapter': chapter, 'part': part, 'exercises_number': exercises_number})
-    else:
-        return render(request, "exercise.html", {'name': b.title})
-
-def answers(request):
     answers = Answer.objects.all()
-    return render(request, 'answer_list.html', {'answers': answers})
+    return render(request, "catalog.html", {"answers": answers})
 
-def answer_detail(request, answer_id):
-    answer = Answer.objects.get(id=answer_id)
-    return render(request, 'answer_detail.html', {'answer': answer})
+
+def exercise(request, ans_id):
+    answer = Answer.objects.get(id=ans_id)  # 取得id為使用者要求之數的該筆資料
+    question = Question.objects.get(
+        title=answer.title
+    )  # answer.title取得模型Answer中該id的那筆資料的標題(?-? ?.)
+    if "chapter" in request.GET:  # 同總目錄搜尋表單運作
+        name = (
+            request.GET.get("chapter")
+            + "-"
+            + request.GET.get("part")
+            + " "
+            + request.GET.get("exercises number")
+            + "."
+        )
+        answer = Answer.objects.get(title=name)
+        question = Question.objects.get(title=name)
+        return render(
+            request,
+            "exercise.html",
+            {"answer": answer, "question": question},
+        )
+    else:
+        return render(
+            request,
+            "exercise.html",
+            {"answer": answer, "question": question},  # 給題目頁面，並將answer與question變數傳進去該頁面
+        )

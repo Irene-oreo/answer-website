@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="img-no-display"> 
 <head>
-<meta charset=UTF-8" > 
+<meta charset="UTF-8" > 
 <title>蓁臻的解答</title>
 
 <style>
@@ -47,7 +47,7 @@ select[name="chapter1"]{
 </head>
 
 <body>
-<div class="title">
+<div class="title"> <!--/*搜尋表單，可直接跳去那一題*/-->
     <h1>蓁臻的解答</h1>
     <form id="search" action="" method="get">          
     <input type="number" name="chapter" min="1" max="13" placeholder="請輸入第幾章" required >
@@ -59,10 +59,10 @@ select[name="chapter1"]{
 
 <div class="select">
 <form id="chapter" action="" method="get">   
-<select name="chapter1"> 
+ <select name="chapter1"> <!--/*建立下拉式表單讓使用者選擇想要去的章節目錄*/ -->
  <option value="">請選擇小節</option>
 	{% for key,value in chapter1_form.chapter1 %}
-	<option value="{{ value }}">{{ key }}</option>
+	<option value="{{ value }}">{{ key }}</option>  <!--/* 透過for迴圈取出chapter1_form表單中第一章表單的值(要傳回的值)及要顯示的選單選項*/-->
 	{% endfor %}
 </select>
 <input type="submit" value="確定"/>

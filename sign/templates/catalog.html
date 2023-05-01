@@ -21,7 +21,7 @@
     top: 0;
     left: 0;
     right: 0;
-  }
+}
 body{
     background-color: #c7d8c6;
     padding-top: 80px;
@@ -40,24 +40,27 @@ body{
     border-radius: 5px;
 }
 .list{
-    margin: auto;
-    text-align: left;
-    border-color: black;
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 5px;
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.562);
-    width: 40%;
-    font-size: 23px;
-    padding: 10px;
+        margin: auto;
+        text-align: left;
+        width: 40%;
+        font-size: 23px;
+        
 }
-.list:hover{
-    background-color: #efd9c3;
-    border-color: white;
+a:hover{
+        background-color: #efd9c3;
+        border-color: white;
 }
 a{
-    color: black;
-    text-decoration: none;
+        color: black;
+        text-decoration: none;
+        border-color: black;
+        border-width: 2px;
+        border-style: solid;
+        border-radius: 5px;
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.562); /*設定元素陰影，可呈現出按鈕效果*/
+        padding: 10px;
+        width:100%;
+        display:block; /*設定元素顯示特徵為由上而下自動換行*/
 }
 </style>
 </head>
@@ -68,25 +71,17 @@ a{
 </div>
 
 <div class="chapter">
-	<h2> {{ name }} </h2>
+	<h2> {{ name }} </h2>  <!--/*印出目前是幾之幾*/-->
 </div>
 
 <div class="list">
-{% if name == '1-1' %}
-{% for i,j in Chapterlist.chapter1_1_list %}
-<a href="catalog/exercise"><strong>{{ i }}</strong>&nbsp&nbsp&nbsp {{ j }}<br></a>
-{% endfor %}
-{% endif %}
-{% if name == '1-2' %}
-{% for i,j in Chapterlist.chapter1_2_list %}
-<a href="catalog/exercise"><strong>{{ i }}</strong>&nbsp&nbsp&nbsp {{ j }}<br></a>
-{% endfor %}
-{% endif %}
-{% if name == '1-3' %}
-{% for i,j in Chapterlist.chapter1_3_list %}
-<a href="catalog/exercise"><strong>{{ i }}</strong>&nbsp&nbsp&nbsp {{ j }}<br></a>
-{% endfor %}
-{% endif %}
+    {% for Chapterlist in Chapterlist %}
+    
+        <a href='catalog/exercise/{{ Chapterlist.id }}/'>&nbsp&nbsp&nbsp{{ Chapterlist.content }}</a><br>  <!--/*用for迴圈取得每筆屬於該章節的答案，且設其超連結為該題題目頁面*/--> 
+    
+    {% endfor %}
+
+
 </div>
 
 
